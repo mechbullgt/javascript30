@@ -18,7 +18,7 @@
     </div>
     <style>
         html {
-            background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+            background-color: black;
             background-size: cover;
             font-family: 'helvetica neue';
             text-align: center;
@@ -35,19 +35,16 @@
         }
 
         .clock {
+            border: 2px;
+            border-color: aliceblue;
             width: 30rem;
             height: 30rem;
-            box-shadow:
-                0 0 0 4px rgba(0, 0, 0, 0.1),
-                inset 0 0 0 3px #EFEFEF,
-                inset 0 0 10px black,
-                0 0 10px rgba(0, 0, 0, 0.2);
             margin: 50px auto;
         }
 
         .clock-face{
             position: relative;
-            background: yellow;
+            background: gold;
             width: 100%;
             height: 100%;
             transform: translateY(-3px);
@@ -70,19 +67,24 @@
     const minuteHand = document.querySelector(".minute-hand");
     const secondsHand = document.querySelector(".seconds-hand");
     
-    hourHand.style.transform = "rotate(90deg)";
-    minuteHand.style.transform="rotate(180deg)";
+    hourHand.style.width="35%";
+    minuteHand.style.width="45%";
+    secondsHand.style.background = "green";
 
-    function handleSeconds(){
+    function showTime(){
         const now = new Date();
         console.log("1 Second just passed!");
         const seconds = now.getSeconds();
         var secondsDegree = ((seconds*6)+90);
         secondsHand.style.transform=`rotate(${secondsDegree}deg)`;
+
+        const minutes = now.getMinutes();
+        var minutesDegree = (minutes*60*6)+(seconds/10)+90;
+        minuteHand.style.transform = `rotate(${minutesDegree}deg)`;
     }
 
-    setInterval(handleSeconds, 1000);
-    handleSeconds();
+    setInterval(showTime, 1000);
+    showTime();
     </script>
 </body>
 

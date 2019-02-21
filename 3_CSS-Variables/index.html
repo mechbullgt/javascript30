@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS-Variable</title>
+</head>
+
+<body>
+    <h2>Update CSS Variable with <span class='hl'>JS</span></h2>
+    <div class="controls">
+        <label for="spacing">Spacing</label>
+        <input name="spacing" id="spacing" type="range" min="10" max="200" value="10" data-sizing="px">
+
+        <label for="blur">Blur It</label>
+        <input name="blur" id="blur" type="range" min="10" max="200" value="10" data-sizing="px">
+
+        <label for="base">Base Color</label>
+        <input name="base" id="base" type="color" value="#ffc600">
+    </div>
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+    <style>
+        :root {
+            --base: #ffc600;
+            --blur: 10px;
+            --spacing: 10px;
+        }
+
+        img {
+            padding: var(--spacing);
+            background: var(--base);
+            filter:blur(var(--blur));
+        }
+
+        .hl {
+            color:var(--base);
+        }
+
+        body {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 100;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .controls {
+            margin: 50px 50px 20px;
+        }
+
+        input {
+            width: 100px;
+        }
+    </style>
+<script>
+const inputs = document.querySelectorAll('.controls input');
+console.log('Inputs:',inputs);
+
+function handleUpdate(){
+console.log("This:",this);
+const pxSuffix = this.dataset.sizing || '';
+document.documentElement.style.setProperty(`--${this.name}`,this.value+pxSuffix);
+}
+
+inputs.forEach(
+    input=> input.addEventListener('mousemove',handleUpdate)
+    );
+inputs.forEach(
+    input=> input.addEventListener('change',handleUpdate)
+    );
+</script>
+</body>
+
+</html>

@@ -59,6 +59,7 @@
             transition: all 0.05s;
             transform-origin: 100%;
             transform:rotate(90deg);
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
         }
     </style>
     <script>
@@ -66,21 +67,28 @@
     //console.log('HourHand:',hourHand);
     const minuteHand = document.querySelector(".minute-hand");
     const secondsHand = document.querySelector(".seconds-hand");
-    
-    hourHand.style.width="35%";
-    minuteHand.style.width="45%";
     secondsHand.style.background = "green";
+    hourHand.style.background = "black";
+    minuteHand.style.background="white";
+
 
     function showTime(){
         const now = new Date();
         console.log("1 Second just passed!");
         const seconds = now.getSeconds();
+        console.log("S:",seconds);
         var secondsDegree = ((seconds*6)+90);
         secondsHand.style.transform=`rotate(${secondsDegree}deg)`;
 
         const minutes = now.getMinutes();
-        var minutesDegree = (minutes*60*6)+(seconds/10)+90;
+        console.log("M:",minutes);
+        var minutesDegree = ((minutes+(seconds/60))*6)+90;
         minuteHand.style.transform = `rotate(${minutesDegree}deg)`;
+
+        const hours = now.getHours();
+        console.log("H", hours);
+        var hourDegree = ((hours)+(minutes/60)+(seconds/3600))*30+90;
+        hourHand.style.transform=`rotate(${hourDegree}deg)`;
     }
 
     setInterval(showTime, 1000);
